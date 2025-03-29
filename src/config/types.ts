@@ -17,6 +17,7 @@ export interface Config {
   start_date?: string;
   days_to_show: number;
   max_events_to_show?: number;
+  max_days_to_show?: number;
   show_empty_days: boolean;
   filter_duplicates: boolean;
   language?: string;
@@ -104,6 +105,7 @@ export interface EntityConfig {
   show_time?: boolean;
   show_location?: boolean;
   max_events_to_show?: number;
+  max_days_to_show?: number;
   blocklist?: string;
   allowlist?: string;
 }

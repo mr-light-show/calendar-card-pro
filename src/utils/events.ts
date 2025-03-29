@@ -392,29 +392,40 @@ export function groupEventsByDay(
     }
   }
 
-  // Apply max_events_to_show limit if configured and not expanded (global limit)
-  if (config.max_events_to_show && !isExpanded) {
+  // Apply max_events_to_show or max_days_to_show limits if configured and not expanded (global limit)
+  //if ((config.max_events_to_show || config.max_days_to_show) && !isExpanded) {
+  if ((config.max_days_to_show) && !isExpanded) {
     let eventsShown = 0;
+    let daysShown = 0;
     const maxEvents = config.max_events_to_show ?? 0;
+    const maxDays = config.max_days_to_show ?? 0;
     const limitedDays: Types.EventsByDay[] = [];
 
     for (const day of days) {
       // If we've already hit the limit, stop adding days
-      if (eventsShown >= maxEvents) {
+      if ((eventsShown >= maxEvents) && (daysShown > maxDays)) {
         break;
       }
 
-      // For empty days, always include them without counting toward the max_events_to_show limit
+      // For empty days, always include them without counting toward the max_events_to_show or max_days_to_show limits
       if (day.events.length === 1 && day.events[0]._isEmptyDay) {
         limitedDays.push(day);
         continue;
       }
-
+      
       // Calculate how many events we can still add from this day
       const remainingEvents = maxEvents - eventsShown;
 
-      // If this day has events to show (considering our remaining limit)
-      if (remainingEvents > 0 && day.events.length > 0) {
+      // If this day has events to show and we are showing by full days
+      if (maxDays > daysShown) {  // TODO -- for issues/81:  || ((soft_days == true) && (remainingEvents > 0))
+        limitedDays.push(day);
+        // track days & event shown
+        daysShown++;
+        eventsShown += day.events.length;
+        continue;
+      }
+
+      if (remainingEvents > 0 && day.events.length > 0) { // If this day has events to show (considering our remaining event limit)
         // Create a new day object with limited events
         const limitedDay: Types.EventsByDay = {
           ...day,
@@ -423,8 +434,7 @@ export function groupEventsByDay(
 
         // Add this day to our result
         limitedDays.push(limitedDay);
-
-        // Update our counter
+        // Update our counters
         eventsShown += limitedDay.events.length;
       }
     }

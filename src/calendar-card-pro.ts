@@ -439,7 +439,7 @@ class CalendarCardPro extends LitElement {
    * Toggle expanded state for view modes with limited events
    */
   toggleExpanded(): void {
-    if (this.config.max_events_to_show) {
+    if (this.config.max_events_to_show || this.config.max_days_to_show) {
       this.isExpanded = !this.isExpanded;
     }
   }

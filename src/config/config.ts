@@ -20,6 +20,7 @@ export const DEFAULT_CONFIG: Types.Config = {
   start_date: undefined,
   days_to_show: 3,
   max_events_to_show: undefined,
+  max_days_to_show: undefined,
   show_empty_days: false,
   filter_duplicates: false,
   language: undefined,
@@ -114,6 +115,7 @@ export function normalizeEntities(
         show_time?: boolean;
         show_location?: boolean;
         max_events_to_show?: number;
+        max_days_to_show?: number;
         blocklist?: string;
         allowlist?: string;
       }
@@ -141,6 +143,7 @@ export function normalizeEntities(
           show_time: item.show_time,
           show_location: item.show_location,
           max_events_to_show: item.max_events_to_show,
+          max_days_to_show: item.max_days_to_show,
           blocklist: item.blocklist,
           allowlist: item.allowlist,
         };
