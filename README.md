@@ -166,6 +166,7 @@ Calendar Card Pro offers a range of **customization options** to match your need
 
   - Set `days_to_show` to define how many days are visible.
   - Use `max_events_to_show` to limit the number of events in compact mode.
+  - use `max_days_to_show` to limit the nubmer of full days of events in compact mode.
 
 - **Customize colors, fonts, and layout**
 
@@ -188,8 +189,10 @@ entities:
     color: '#457b9d' # Custom color for work events
 days_to_show: 5
 max_events_to_show: 5
+max_days_to_show: 2
 show_location: true
 ```
+This exmaple will show a minimum of 2 days and 5 events in compact mode.
 
 ### 🚀 Next Steps
 
