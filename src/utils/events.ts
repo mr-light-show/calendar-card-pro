@@ -393,8 +393,7 @@ export function groupEventsByDay(
   }
 
   // Apply max_events_to_show or max_days_to_show limits if configured and not expanded (global limit)
-  //if ((config.max_events_to_show || config.max_days_to_show) && !isExpanded) {
-  if ((config.max_days_to_show) && !isExpanded) {
+  if ((config.max_events_to_show || config.max_days_to_show) && !isExpanded) {
     let eventsShown = 0;
     let daysShown = 0;
     const maxEvents = config.max_events_to_show ?? 0;
