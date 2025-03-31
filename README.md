@@ -192,7 +192,7 @@ max_events_to_show: 5
 max_days_to_show: 2
 show_location: true
 ```
-This exmaple will show a minimum of 2 days and 5 events in compact mode.
+In compact mode this example will show a maximum of 2 days or 5 events (which ever shows more)
 
 ### 🚀 Next Steps
 
